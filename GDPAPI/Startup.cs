@@ -20,6 +20,17 @@ namespace GDPAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => 
+            {
+                options.AddPolicy("GDPPolicy", builder => 
+                {
+                    builder
+                        .WithOrigins("managemybus.azurewebsites.net", "front.gdp.com")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             services.AddControllers();
             var containerBuilder = new ContainerBuilder();
             ConfigureContainer(containerBuilder);
@@ -32,6 +43,8 @@ namespace GDPAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("GDPPolicy");
 
             app.UseHttpsRedirection();
 
