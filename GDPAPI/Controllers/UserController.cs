@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using GDPAPI.Models;
 using GDPAPI.UnitOfWork;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GDPAPI.Controllers
@@ -18,5 +15,30 @@ namespace GDPAPI.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+        
+        [HttpGet]
+        public IActionResult ListUser()
+        {
+            var users = _unitOfWork.User.GetAllUser();
+            if (users == null)
+            {
+                return BadRequest();
+            }
+            return Ok(users);
+        }
+
+        [HttpPost]
+        public IActionResult SaveUser(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            _unitOfWork.User.AddUser(user);
+            _unitOfWork.Complete();
+
+            return Ok(user);
+        } 
     }
 }

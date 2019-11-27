@@ -1,9 +1,11 @@
 using Autofac;
 using GDPAPI.UnitOfWork;
+using GDPAPI.Persistence.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 namespace GDPAPI
@@ -20,6 +22,9 @@ namespace GDPAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApiContext>(x => x.UseSqlServer(Configuration.GetValue<string>("ConnectionStrings:DefaultConnection")));
+            services.AddControllers().AddControllersAsServices();
             services.AddCors(options => 
             {
                 options.AddPolicy("GDPPolicy", builder => 
@@ -31,7 +36,6 @@ namespace GDPAPI
                 });
             });
 
-            services.AddControllers();
             var containerBuilder = new ContainerBuilder();
             ConfigureContainer(containerBuilder);
         }
@@ -58,8 +62,9 @@ namespace GDPAPI
             });
         }
 
-        private static void ConfigureContainer(ContainerBuilder containerBuilder)
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
+            // wire up using autofac specific APIs here
 
             containerBuilder.RegisterType<UnitOfWork.UnitOfWork>().As<IUnitOfWork>();
 
