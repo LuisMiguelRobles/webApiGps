@@ -6,17 +6,17 @@ namespace GDPAPI.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly Context _context;
-        public UnitOfWork(Context context)
+        private readonly ApiContext _apiContext;
+        public UnitOfWork(ApiContext apiContext)
         {
-            _context = context;
-            User = new UserRepository(_context);
+            _apiContext = apiContext;
+            User = new UserRepository(_apiContext);
         }
 
         public IUser User { get; }
         public void Complete()
         {
-            _context.SaveChanges();
+            _apiContext.SaveChanges();
         }
     }
 }
