@@ -25,6 +25,17 @@ namespace GDPAPI
 
             services.AddDbContext<ApiContext>(x => x.UseSqlServer(Configuration.GetValue<string>("ConnectionStrings:DefaultConnection")));
             services.AddControllers().AddControllersAsServices();
+            services.AddCors(options => 
+            {
+                options.AddPolicy("GDPPolicy", builder => 
+                {
+                    builder
+                        .WithOrigins("managemybus.azurewebsites.net", "front.gdp.com")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             var containerBuilder = new ContainerBuilder();
             ConfigureContainer(containerBuilder);
         }
@@ -36,6 +47,8 @@ namespace GDPAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("GDPPolicy");
 
             app.UseHttpsRedirection();
 
