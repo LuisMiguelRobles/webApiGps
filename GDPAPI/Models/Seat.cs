@@ -11,6 +11,8 @@ namespace GDPAPI.Models
 
         public int SeatNumber { get; set; }
 
-        public string FK_Vehicle { get; set; }
+        public string VehiclePlaque { get; set; }
+
+        public Vehicle Vehicle { get; set; }
     }
 }

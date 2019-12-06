@@ -14,5 +14,9 @@ namespace GDPAPI.Models
         public string Celphone { get; set; }
 
         public string Email { get; set; }
+
+        public ICollection<DestinationOffered> DestinationOffers { get; set; }
+
+        public ICollection<Vehicle> Vehicle { get; set; }
     }
 }

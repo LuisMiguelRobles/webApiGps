@@ -11,10 +11,14 @@ namespace GDPAPI.Models
 
         public double DestinationPrice { get; set; }
 
-        public string FK_Company { get; set; }
-
-        public int FK_Destination { get; set; }
-
         public bool Direct { get; set; }
+
+        public string CompanyNit { get; set; }
+
+        public Company Company { get; set; }
+
+        public int DestinationID{ get; set; }
+
+        public Destination Destination { get; set; }
     }
 }

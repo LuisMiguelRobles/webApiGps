@@ -11,6 +11,10 @@ namespace GDPAPI.Models
 
         public string InternalIdentifier { get; set; }
 
-        public string FK_Company { get; set; }
+        public string CompanyNit { get; set; }
+
+        public Company Company { get; set; }
+
+        public ICollection<Seat> Seat { get; set; }
     }
 }
