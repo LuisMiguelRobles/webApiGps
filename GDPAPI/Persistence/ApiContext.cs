@@ -53,13 +53,30 @@ namespace GDPAPI.Persistence.Context
 
             modelBuilder.Entity<Vehicle>().HasKey(vehicle => new { vehicle.Plaque });
             modelBuilder.Entity<Vehicle>().Property(vehicle => vehicle.InternalIdentifier).IsRequired();
+            modelBuilder.Entity<Vehicle>()
+                .HasOne(company => company.Company)
+                .WithMany(vehicle => vehicle.Vehicle)
+                .HasForeignKey(company => company.CompanyNit);
+
 
             modelBuilder.Entity<Seat>().HasKey(seat => new { seat.Id });
             modelBuilder.Entity<Seat>().Property(seat => seat.SeatNumber).IsRequired();
+            modelBuilder.Entity<Seat>()
+                .HasOne(seat => seat.Vehicle)
+                .WithMany(vehicle => vehicle.Seats)
+                .HasForeignKey(vehicle => vehicle.VehiclePlaque);
+
 
             modelBuilder.Entity<DestinationOffered>().HasKey(dOffered => new { dOffered.Id });
             modelBuilder.Entity<DestinationOffered>().Property(dOffered => dOffered.DestinationPrice).IsRequired();
             modelBuilder.Entity<DestinationOffered>().Property(dOffered => dOffered.Direct).IsRequired();
+            modelBuilder.Entity<DestinationOffered>().HasOne(dOffered => dOffered.Destination)
+                .WithMany(dest => dest.DestinationOffers)
+                .HasForeignKey(dOffered => dOffered.DestinationID);
+
+            modelBuilder.Entity<DestinationOffered>().HasOne(dOffered => dOffered.Company)
+                .WithMany(dest => dest.DestinationOffers)
+                .HasForeignKey(dOffered => dOffered.CompanyNit);
 
             modelBuilder.Entity<VehicleDeparture>().HasKey(vDeparture => new { vDeparture.Id });
             modelBuilder.Entity<VehicleDeparture>().Property(vDeparture => vDeparture.Date).IsRequired();

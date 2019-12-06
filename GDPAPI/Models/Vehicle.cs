@@ -15,6 +15,6 @@ namespace GDPAPI.Models
 
         public Company Company { get; set; }
 
-        public ICollection<Seat> Seat { get; set; }
+        public ICollection<Seat> Seats { get; set; }
     }
 }
