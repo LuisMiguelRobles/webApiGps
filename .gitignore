@@ -1,1 +1,9 @@
 .vs
+bin/
+obj/
+/GDPAPI/obj/Debug/netcoreapp3.0/GDPAPI.assets.cache
+/GDPAPI/obj/Debug/netcoreapp3.0/GDPAPI.csprojAssemblyReference.cache
+/GDPAPI/obj/GDPAPI.csproj.nuget.cache
+/GDPAPI/obj/GDPAPI.csproj.nuget.dgspec.json
+/GDPAPI/obj/GDPAPI.csproj.nuget.g.props
+/GDPAPI/obj/project.assets.json
