@@ -11,9 +11,13 @@ namespace GDPAPI.UnitOfWork
         {
             _apiContext = apiContext;
             User = new UserRepository(_apiContext);
+            Station = new StationRepository(_apiContext);
         }
 
         public IUser User { get; }
+
+        public IStation Station { get; }
+
         public void Complete()
         {
             _apiContext.SaveChanges();
