@@ -82,7 +82,7 @@ namespace GDPAPI.Persistence.Context
                 .WithMany(vehicle => vehicle.Seats)
                 .HasForeignKey(vehicle => vehicle.VehiclePlaque);
 
-
+            /**/
             modelBuilder.Entity<DestinationOffered>().HasKey(dOffered => new { dOffered.Id });
             modelBuilder.Entity<DestinationOffered>().Property(dOffered => dOffered.DestinationPrice).IsRequired();
             modelBuilder.Entity<DestinationOffered>().Property(dOffered => dOffered.Direct).IsRequired();
@@ -97,10 +97,14 @@ namespace GDPAPI.Persistence.Context
             modelBuilder.Entity<VehicleDeparture>().HasKey(vDeparture => new { vDeparture.Id });
             modelBuilder.Entity<VehicleDeparture>().Property(vDeparture => vDeparture.DateTime).IsRequired();
 
+            /*ticket*/
             modelBuilder.Entity<Ticket>().HasKey(ticket => new { ticket.Id });
             modelBuilder.Entity<Ticket>().Property(ticket => ticket.SeatNumber).IsRequired();
             modelBuilder.Entity<Ticket>().Property(ticket => ticket.Status).IsRequired();
             modelBuilder.Entity<Ticket>().Property(ticket => ticket.TicketPrice).IsRequired();
+            .HasOne(ticket => ticket.User)
+                .WithMany(user => user.Ticket)
+                .HasForeignKey(user => user.UserId);
         }
     }
 }
