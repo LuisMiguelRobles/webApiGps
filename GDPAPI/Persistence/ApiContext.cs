@@ -22,6 +22,8 @@ namespace GDPAPI.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            /*Users*/
             modelBuilder.Entity<User>().HasKey(user => new { user.Id });
             modelBuilder.Entity<User>().Property(user => user.Name).IsRequired();
             modelBuilder.Entity<User>().Property(user => user.LastName).IsRequired();
@@ -32,27 +34,34 @@ namespace GDPAPI.Persistence.Context
                 .WithOne(contact => contact.User)
                 .HasForeignKey<Contact>(contact => contact.UserId);
 
+            /*Contact*/
             modelBuilder.Entity<Contact>().HasKey(contact => contact.Id);
             modelBuilder.Entity<Contact>().Property(contact => contact.City).IsRequired();
             modelBuilder.Entity<Contact>().Property(contact => contact.Email).IsRequired();
             modelBuilder.Entity<Contact>().HasIndex(contact => contact.Email).IsUnique();
             modelBuilder.Entity<Contact>().Property(contact => contact.Phone).IsRequired();
 
-
+            /*Driver*/
             modelBuilder.Entity<Driver>().HasKey(driver => new { driver.Identification });
             modelBuilder.Entity<Driver>().Property(driver => driver.Name).IsRequired();
-            modelBuilder.Entity<Driver>().Property(driver => driver.Celphone).IsRequired();
+            modelBuilder.Entity<Driver>().Property(driver => driver.Phone).IsRequired();
+            
 
+
+
+            /*Station*/
             modelBuilder.Entity<Station>().HasKey(destination => new { destination.Id });
             modelBuilder.Entity<Station>().Property(destination => destination.Name).IsRequired();
             modelBuilder.Entity<Station>().Property(destination => destination.Code).IsRequired();
 
+            /*Company*/
             modelBuilder.Entity<Company>().HasKey(company => new { company.Nit });
             modelBuilder.Entity<Company>().Property(company => company.Name).IsRequired();
             modelBuilder.Entity<Company>().Property(company => company.Phone).IsRequired();
             modelBuilder.Entity<Company>().HasIndex(company => company.Email).IsUnique();
             modelBuilder.Entity<Company>().Property(company => company.Email).IsRequired();
 
+            /*Vehicle*/
             modelBuilder.Entity<Vehicle>().HasKey(vehicle => new { vehicle.Plaque });
             modelBuilder.Entity<Vehicle>().Property(vehicle => vehicle.InternalIdentifier).IsRequired();
             modelBuilder.Entity<Vehicle>()
@@ -60,7 +69,12 @@ namespace GDPAPI.Persistence.Context
                 .WithMany(vehicle => vehicle.Vehicle)
                 .HasForeignKey(company => company.CompanyNit);
 
+            modelBuilder.Entity<Vehicle>()
+                .HasOne(vehicle => vehicle.Driver)
+                .WithOne(driver => driver.Vehicle)
+                .HasForeignKey<Driver>(driver => driver.vehicleIdentification);
 
+            /*Seat*/
             modelBuilder.Entity<Seat>().HasKey(seat => new { seat.Id });
             modelBuilder.Entity<Seat>().Property(seat => seat.SeatNumber).IsRequired();
             modelBuilder.Entity<Seat>()

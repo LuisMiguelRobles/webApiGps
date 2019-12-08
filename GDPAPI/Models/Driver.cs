@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,9 @@ namespace GDPAPI.Models
 
         public string Name { get; set; }
 
-        public string Celphone { get; set; }
+        public string Phone { get; set; }
+
+        public string vehicleIdentification { get; set; }
+        public Vehicle Vehicle { get; set; }
     }
 }
