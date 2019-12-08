@@ -3,33 +3,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GDPAPI.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class ModelTerminal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    Identification = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Celphone = table.Column<int>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Username = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.Identification);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
                     Nit = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Celphone = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -43,7 +27,8 @@ namespace GDPAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Location = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,19 +63,19 @@ namespace GDPAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SeatsOcupation", x => x.Id);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
-                    UserType = table.Column<string>(nullable: true)
+                    UserType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,33 +88,12 @@ namespace GDPAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false),
-                    FK_Vehicle = table.Column<string>(nullable: true),
-                    FK_Driver = table.Column<string>(nullable: true),
-                    FK_DestinationOffered = table.Column<int>(nullable: false)
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    State = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VehicleDepartures", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vehicles",
-                columns: table => new
-                {
-                    Plaque = table.Column<string>(nullable: false),
-                    InternalIdentifier = table.Column<string>(nullable: false),
-                    CompanyNit = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vehicles", x => x.Plaque);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Companies_CompanyNit",
-                        column: x => x.CompanyNit,
-                        principalTable: "Companies",
-                        principalColumn: "Nit",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,7 +105,7 @@ namespace GDPAPI.Migrations
                     DestinationPrice = table.Column<double>(nullable: false),
                     Direct = table.Column<bool>(nullable: false),
                     CompanyNit = table.Column<string>(nullable: true),
-                    DestinationID = table.Column<int>(nullable: false)
+                    DestinationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,9 +117,57 @@ namespace GDPAPI.Migrations
                         principalColumn: "Nit",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DestinationsOffered_Destinations_DestinationID",
-                        column: x => x.DestinationID,
+                        name: "FK_DestinationsOffered_Destinations_DestinationId",
+                        column: x => x.DestinationId,
                         principalTable: "Destinations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vehicles",
+                columns: table => new
+                {
+                    Plaque = table.Column<string>(nullable: false),
+                    InternalIdentifier = table.Column<string>(nullable: false),
+                    CompanyNit = table.Column<string>(nullable: true),
+                    DriverIdentification = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicles", x => x.Plaque);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Companies_CompanyNit",
+                        column: x => x.CompanyNit,
+                        principalTable: "Companies",
+                        principalColumn: "Nit",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Drivers_DriverIdentification",
+                        column: x => x.DriverIdentification,
+                        principalTable: "Drivers",
+                        principalColumn: "Identification",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Contact",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    City = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contact", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contact_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -181,15 +193,21 @@ namespace GDPAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_Email",
-                table: "Clients",
+                name: "IX_Companies_Email",
+                table: "Companies",
                 column: "Email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_Email",
-                table: "Companies",
+                name: "IX_Contact_Email",
+                table: "Contact",
                 column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contact_UserId",
+                table: "Contact",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -198,7 +216,7 @@ namespace GDPAPI.Migrations
                 column: "CompanyNit");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DestinationsOffered_DestinationID",
+                name: "IX_DestinationsOffered_DestinationId",
                 table: "DestinationsOffered",
                 column: "DestinationId");
 
@@ -208,27 +226,23 @@ namespace GDPAPI.Migrations
                 column: "VehiclePlaque");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Email",
-                table: "Users",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_CompanyNit",
                 table: "Vehicles",
                 column: "CompanyNit");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_DriverIdentification",
+                table: "Vehicles",
+                column: "DriverIdentification");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Contact");
 
             migrationBuilder.DropTable(
                 name: "DestinationsOffered");
-
-            migrationBuilder.DropTable(
-                name: "Drivers");
 
             migrationBuilder.DropTable(
                 name: "Seats");
@@ -237,10 +251,10 @@ namespace GDPAPI.Migrations
                 name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "VehicleDepartures");
 
             migrationBuilder.DropTable(
-                name: "VehicleDepartures");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Destinations");
@@ -250,6 +264,9 @@ namespace GDPAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
         }
     }
 }

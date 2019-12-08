@@ -11,7 +11,6 @@ namespace GDPAPI.Persistence.Context
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Client> Clients { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Station> Destinations { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -26,17 +25,19 @@ namespace GDPAPI.Persistence.Context
             modelBuilder.Entity<User>().HasKey(user => new { user.Id });
             modelBuilder.Entity<User>().Property(user => user.Name).IsRequired();
             modelBuilder.Entity<User>().Property(user => user.LastName).IsRequired();
-            //modelBuilder.Entity<User>().Property(user => user.Email).IsRequired();
-            //modelBuilder.Entity<User>().HasIndex(user => user.Email).IsUnique();
             modelBuilder.Entity<User>().Property(user => user.Password).IsRequired();
+            modelBuilder.Entity<User>().Property(user => user.UserType).IsRequired();
+            modelBuilder.Entity<User>()
+                .HasOne(user => user.Contact)
+                .WithOne(contact => contact.User)
+                .HasForeignKey<Contact>(contact => contact.UserId);
 
-            modelBuilder.Entity<Client>().HasKey(client => new { client.Identification });
-            modelBuilder.Entity<Client>().Property(client => client.Name).IsRequired();
-            modelBuilder.Entity<Client>().Property(client => client.Celphone).IsRequired();
-            modelBuilder.Entity<Client>().Property(client => client.Email).IsRequired();
-            modelBuilder.Entity<Client>().HasIndex(client => client.Email).IsUnique();
-            modelBuilder.Entity<Client>().Property(client => client.Username).IsRequired();
-            modelBuilder.Entity<Client>().Property(client => client.Password).IsRequired();
+            modelBuilder.Entity<Contact>().HasKey(contact => contact.Id);
+            modelBuilder.Entity<Contact>().Property(contact => contact.City).IsRequired();
+            modelBuilder.Entity<Contact>().Property(contact => contact.Email).IsRequired();
+            modelBuilder.Entity<Contact>().HasIndex(contact => contact.Email).IsUnique();
+            modelBuilder.Entity<Contact>().Property(contact => contact.Phone).IsRequired();
+
 
             modelBuilder.Entity<Driver>().HasKey(driver => new { driver.Identification });
             modelBuilder.Entity<Driver>().Property(driver => driver.Name).IsRequired();
