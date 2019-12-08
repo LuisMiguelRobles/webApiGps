@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace GDPAPI.Models
 {
     public class DestinationOffered
@@ -17,8 +13,8 @@ namespace GDPAPI.Models
 
         public Company Company { get; set; }
 
-        public int DestinationID{ get; set; }
+        public int DestinationId{ get; set; }
 
-        public Destination Destination { get; set; }
+        public Station Station { get; set; }
     }
 }

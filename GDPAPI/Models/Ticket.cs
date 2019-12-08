@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GDPAPI.Models
 {
-    public class SeatOcupation
+    public class Ticket
     {
         public int Id { get; set; }
 

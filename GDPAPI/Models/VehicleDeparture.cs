@@ -8,13 +8,7 @@ namespace GDPAPI.Models
     public class VehicleDeparture
     {
         public int Id { get; set; }
-
-        public DateTime Date { get; set; } //Duda de tipo.
-
-        public string FK_Vehicle { get; set; }
-
-        public string FK_Driver { get; set; }
-
-        public int FK_DestinationOffered { get; set; }
+        public DateTime DateTime { get; set; }
+        public bool State { get; set; }
     }
 }
