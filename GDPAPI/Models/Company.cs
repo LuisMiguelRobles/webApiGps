@@ -15,8 +15,8 @@ namespace GDPAPI.Models
 
         public string Email { get; set; }
 
-        public ICollection<DestinationOffered> DestinationOffers { get; set; }
+        public virtual ICollection<DestinationOffered> DestinationOffers { get; set; }
 
-        public ICollection<Vehicle> Vehicle { get; set; }
+        public virtual ICollection<Vehicle> Vehicle { get; set; }
     }
 }

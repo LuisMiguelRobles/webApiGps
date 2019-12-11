@@ -29,23 +29,20 @@ namespace GDPAPI.Persistence.Context
             modelBuilder.Entity<User>().Property(user => user.LastName).IsRequired();
             modelBuilder.Entity<User>().Property(user => user.Password).IsRequired();
             modelBuilder.Entity<User>().Property(user => user.UserType).IsRequired();
-            modelBuilder.Entity<User>()
-                .HasOne(user => user.Contact)
-                .WithOne(contact => contact.User)
-                .HasForeignKey<Contact>(contact => contact.UserId);
+            modelBuilder.Entity<User>().Property(user => user.Email).IsRequired();
+            modelBuilder.Entity<User>().HasIndex(user => user.Email).IsUnique();
+            modelBuilder.Entity<User>().Property(user => user.City).IsRequired();
+            modelBuilder.Entity<User>().Property(user => user.Phone).IsRequired();
 
-            /*Contact*/
-            modelBuilder.Entity<Contact>().HasKey(contact => contact.Id);
-            modelBuilder.Entity<Contact>().Property(contact => contact.City).IsRequired();
-            modelBuilder.Entity<Contact>().Property(contact => contact.Email).IsRequired();
-            modelBuilder.Entity<Contact>().HasIndex(contact => contact.Email).IsUnique();
-            modelBuilder.Entity<Contact>().Property(contact => contact.Phone).IsRequired();
 
             /*Driver*/
             modelBuilder.Entity<Driver>().HasKey(driver => new { driver.Identification });
             modelBuilder.Entity<Driver>().Property(driver => driver.Name).IsRequired();
             modelBuilder.Entity<Driver>().Property(driver => driver.Phone).IsRequired();
-            
+            modelBuilder.Entity<Driver>()
+                .HasOne(driver => driver.Vehicle)
+                .WithOne(vehicle => vehicle.Driver)
+                .HasForeignKey<Driver>(driver => driver.VehicleIdentification);
 
 
 
@@ -72,7 +69,7 @@ namespace GDPAPI.Persistence.Context
             modelBuilder.Entity<Vehicle>()
                 .HasOne(vehicle => vehicle.Driver)
                 .WithOne(driver => driver.Vehicle)
-                .HasForeignKey<Driver>(driver => driver.vehicleIdentification);
+                .HasForeignKey<Driver>(driver => driver.VehicleIdentification);
 
             /*Seat*/
             modelBuilder.Entity<Seat>().HasKey(seat => new { seat.Id });
@@ -102,9 +99,6 @@ namespace GDPAPI.Persistence.Context
             modelBuilder.Entity<Ticket>().Property(ticket => ticket.SeatNumber).IsRequired();
             modelBuilder.Entity<Ticket>().Property(ticket => ticket.Status).IsRequired();
             modelBuilder.Entity<Ticket>().Property(ticket => ticket.TicketPrice).IsRequired();
-            .HasOne(ticket => ticket.User)
-                .WithMany(user => user.Ticket)
-                .HasForeignKey(user => user.UserId);
         }
     }
 }

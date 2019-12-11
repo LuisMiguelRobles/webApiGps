@@ -14,7 +14,7 @@ namespace GDPAPI.Models
 
         public string Phone { get; set; }
 
-        public string vehicleIdentification { get; set; }
+        public string VehicleIdentification { get; set; }
         public Vehicle Vehicle { get; set; }
     }
 }

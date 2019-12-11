@@ -9,6 +9,6 @@ namespace GDPAPI.Models
         public string CompanyNit { get; set; }
         public Company Company { get; set; }
         public Driver Driver { get; set; }
-        public ICollection<Seat> Seats { get; set; }
+        public virtual ICollection<Seat> Seats { get; set; }
     }
 }
