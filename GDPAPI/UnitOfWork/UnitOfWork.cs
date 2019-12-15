@@ -12,11 +12,13 @@ namespace GDPAPI.UnitOfWork
             _apiContext = apiContext;
             User = new UserRepository(_apiContext);
             Station = new StationRepository(_apiContext);
+            Company = new CompanyRepository(_apiContext);
         }
 
         public IUser User { get; }
 
         public IStation Station { get; }
+        public ICompany Company { get; }
 
         public void Complete()
         {

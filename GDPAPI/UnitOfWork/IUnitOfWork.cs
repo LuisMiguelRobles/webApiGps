@@ -6,7 +6,7 @@ namespace GDPAPI.UnitOfWork
     {
         IUser User { get; }
         IStation Station { get; }
-    
+        ICompany Company { get; }
         void Complete();
     }
 }
