@@ -25,5 +25,10 @@ namespace GDPAPI.Repository {
 
             return station;
         }
+
+        public void DeleteStation(string code) {
+            var station = _apiContext.Destinations.FirstOrDefault(station => station.Code == code);
+            _apiContext.Remove(station);
+        }
     }
 }

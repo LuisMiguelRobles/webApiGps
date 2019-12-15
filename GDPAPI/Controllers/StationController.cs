@@ -48,5 +48,19 @@ namespace GDPAPI.Controllers {
 
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("~/api/RemoveStation")]
+        public IActionResult RemoveStation(string code) {
+
+            if (string.IsNullOrEmpty(code)) {
+                return BadRequest();
+            }
+
+            _unitOfWork.Station.DeleteStation(code);
+            _unitOfWork.Complete();
+
+            return Ok("Estacion eliminada");
+        }
     }
 }
