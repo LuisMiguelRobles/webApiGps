@@ -36,7 +36,7 @@ namespace GDPAPI.Controllers
         }
 
         [HttpPost]
-        [Route("~/Api/SaveUser")]
+        [Route("~/api/SaveUser")]
         public IActionResult SaveUser(UserViewModel viewModel)
         {
             if (viewModel == null || !_unitOfWork.User.IsValid(viewModel)) return BadRequest();
@@ -58,7 +58,7 @@ namespace GDPAPI.Controllers
         }
 
         [HttpPost]
-        [Route("~/Api/Login")]
+        [Route("~/api/Login")]
         public IActionResult Login(UserViewModel viewModel)
         {
             var user = _unitOfWork.User.GetUser(_utilities.EncryptPassword(viewModel.Password), viewModel.Email);

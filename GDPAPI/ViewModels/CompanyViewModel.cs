@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GDPAPI.Models
+namespace GDPAPI.ViewModels
 {
-    public class Driver
+    public class CompanyViewModel
     {
-        public string Identification { get; set; }
+        public string Nit { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public Vehicle Vehicle { get; set; }
+        public string Email { get; set; }
+
     }
 }
