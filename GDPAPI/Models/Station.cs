@@ -12,5 +12,6 @@ namespace GDPAPI.Models
         public string Name { get; set; }
 
         public string Code { get; set; }
+        public virtual ICollection<DestinationOffered> DestinationOffers { get; set; }
     }
 }
