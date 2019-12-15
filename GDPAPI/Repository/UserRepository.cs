@@ -16,9 +16,9 @@ namespace GDPAPI.Repository
         {
             _apiContext = apiContext;
         }
-        public User GetUser(string email)
+        public User GetUser(string password, string email)
         {
-            throw new NotImplementedException();
+            return _apiContext.Users.FirstOrDefault(user => user.Password.Equals(password) && user.Email.Equals(email));
         }
         public void AddUser(User user)
         {

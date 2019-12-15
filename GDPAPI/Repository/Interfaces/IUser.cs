@@ -6,7 +6,7 @@ namespace GDPAPI.Repository.Interfaces
 {
     public interface IUser
     {
-        User GetUser(string email);
+        User GetUser(string password, string email);
 
         void AddUser(User user);
 

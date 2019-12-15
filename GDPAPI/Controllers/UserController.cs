@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Security.Cryptography;
+using System.Text;
 using GDPAPI.Models;
 using GDPAPI.UnitOfWork;
 using GDPAPI.Utilities;
 using GDPAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace GDPAPI.Controllers
 {
@@ -15,8 +18,11 @@ namespace GDPAPI.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUtilities _utilities;
 
-        public UserController(IUnitOfWork unitOfWork, IUtilities utilities)
+        private readonly IConfiguration _configuration;
+
+        public UserController(IConfiguration configuration,IUnitOfWork unitOfWork, IUtilities utilities)
         {
+            _configuration = configuration;
             _unitOfWork = unitOfWork;
             _utilities = utilities;
         }
@@ -33,6 +39,7 @@ namespace GDPAPI.Controllers
         }
 
         [HttpPost]
+        [Route("~/Api/SaveUser")]
         public IActionResult SaveUser(UserViewModel viewModel)
         {
             if (viewModel == null || !_unitOfWork.User.IsValid(viewModel)) return BadRequest();
@@ -51,6 +58,28 @@ namespace GDPAPI.Controllers
 
             return Ok(user);
 
+        }
+
+        [HttpPost]
+        [Route("~/Api/Login")]
+        public IActionResult Login(UserViewModel viewModel)
+        {
+            var user = _unitOfWork.User.GetUser(_utilities.EncryptPassword(viewModel.Password), viewModel.Email);
+            if (!ModelState.IsValid)
+                return BadRequest(HttpStatusCode.NotFound);
+
+            if (user == null)
+                return NotFound();
+
+
+            return Ok(_utilities.Token.GetToken(user, GetKey()));
+        }
+
+        private byte[] GetKey()
+        {
+            var secretKey = _configuration.GetValue<string>("JWT:secretKey");
+            var key = Encoding.ASCII.GetBytes(secretKey);
+            return key;
         }
     }
 }

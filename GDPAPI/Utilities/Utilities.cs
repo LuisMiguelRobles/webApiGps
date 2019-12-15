@@ -9,6 +9,13 @@ namespace GDPAPI.Utilities
 {
     public class Utilities : IUtilities
     {
+        public IToken Token { get; }
+
+        public Utilities()
+        {
+            Token = new Token();
+        }
+
         public string EncryptPassword(string password)
         {
             using SHA256 sha256Hash = SHA256.Create();
