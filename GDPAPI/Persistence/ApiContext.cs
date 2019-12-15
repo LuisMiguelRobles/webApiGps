@@ -11,7 +11,6 @@ namespace GDPAPI.Persistence.Context
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Driver> Drivers { get; set; }
         public DbSet<Station> Destinations { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -33,17 +32,6 @@ namespace GDPAPI.Persistence.Context
             modelBuilder.Entity<User>().Property(user => user.City).IsRequired();
             modelBuilder.Entity<User>().Property(user => user.Phone).IsRequired();
 
-            /*Driver*/
-            modelBuilder.Entity<Driver>().HasKey(driver => new { driver.Identification });
-            modelBuilder.Entity<Driver>().Property(driver => driver.Name).IsRequired();
-            modelBuilder.Entity<Driver>().Property(driver => driver.Phone).IsRequired();
-
-
-            modelBuilder.Entity<Driver>()
-                .HasOne(driver => driver.Vehicle)
-                .WithOne(vehicle => vehicle.Driver)
-                .HasForeignKey<Vehicle>(driver => driver.DriverId);
-
 
             /*Station*/
             modelBuilder.Entity<Station>().HasKey(destination => new { destination.Id });
@@ -60,6 +48,8 @@ namespace GDPAPI.Persistence.Context
             /*Vehicle*/
             modelBuilder.Entity<Vehicle>().HasKey(vehicle => new { vehicle.Plaque });
             modelBuilder.Entity<Vehicle>().Property(vehicle => vehicle.InternalIdentifier).IsRequired();
+            modelBuilder.Entity<Vehicle>().Property(vehicle => vehicle.NumberSeats).IsRequired();
+            modelBuilder.Entity<Vehicle>().Property(vehicle => vehicle.SeatsAvailable).IsRequired();
             modelBuilder.Entity<Vehicle>()
                 .HasOne(company => company.Company)
                 .WithMany(vehicle => vehicle.Vehicle)

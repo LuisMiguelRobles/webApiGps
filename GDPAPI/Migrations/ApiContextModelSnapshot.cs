@@ -44,39 +44,6 @@ namespace GDPAPI.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("GDPAPI.Models.Contact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Contact");
-                });
-
             modelBuilder.Entity("GDPAPI.Models.DestinationOffered", b =>
                 {
                     b.Property<int>("Id")
@@ -103,51 +70,6 @@ namespace GDPAPI.Migrations
                     b.HasIndex("DestinationId");
 
                     b.ToTable("DestinationsOffered");
-                });
-
-            modelBuilder.Entity("GDPAPI.Models.Driver", b =>
-                {
-                    b.Property<string>("Identification")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("vehicleIdentification")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Identification");
-
-                    b.HasIndex("vehicleIdentification")
-                        .IsUnique()
-                        .HasFilter("[vehicleIdentification] IS NOT NULL");
-
-                    b.ToTable("Drivers");
-                });
-
-            modelBuilder.Entity("GDPAPI.Models.Seat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("SeatNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VehiclePlaque")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehiclePlaque");
-
-                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("GDPAPI.Models.Station", b =>
@@ -177,15 +99,6 @@ namespace GDPAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FK_Client")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FK_User")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FK_VehicleDeparture")
-                        .HasColumnType("int");
-
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
@@ -196,7 +109,17 @@ namespace GDPAPI.Migrations
                     b.Property<double>("TicketPrice")
                         .HasColumnType("float");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehicleDepartureId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VehicleDepartureId");
 
                     b.ToTable("Tickets");
                 });
@@ -207,6 +130,14 @@ namespace GDPAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -220,10 +151,17 @@ namespace GDPAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -239,6 +177,12 @@ namespace GDPAPI.Migrations
                     b.Property<string>("InternalIdentifier")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatsAvailable")
+                        .HasColumnType("int");
 
                     b.HasKey("Plaque");
 
@@ -257,21 +201,22 @@ namespace GDPAPI.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DestinationOfferedId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Plaque")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleDepartures");
-                });
+                    b.HasIndex("DestinationOfferedId");
 
-            modelBuilder.Entity("GDPAPI.Models.Contact", b =>
-                {
-                    b.HasOne("GDPAPI.Models.User", "User")
-                        .WithOne("Contact")
-                        .HasForeignKey("GDPAPI.Models.Contact", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasIndex("Plaque");
+
+                    b.ToTable("VehicleDepartures");
                 });
 
             modelBuilder.Entity("GDPAPI.Models.DestinationOffered", b =>
@@ -287,18 +232,19 @@ namespace GDPAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GDPAPI.Models.Driver", b =>
+            modelBuilder.Entity("GDPAPI.Models.Ticket", b =>
                 {
-                    b.HasOne("GDPAPI.Models.Vehicle", "Vehicle")
-                        .WithOne("Driver")
-                        .HasForeignKey("GDPAPI.Models.Driver", "vehicleIdentification");
-                });
+                    b.HasOne("GDPAPI.Models.User", "User")
+                        .WithMany("Tickets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("GDPAPI.Models.Seat", b =>
-                {
-                    b.HasOne("GDPAPI.Models.Vehicle", "Vehicle")
-                        .WithMany("Seats")
-                        .HasForeignKey("VehiclePlaque");
+                    b.HasOne("GDPAPI.Models.VehicleDeparture", "VehicleDeparture")
+                        .WithMany("Tickets")
+                        .HasForeignKey("VehicleDepartureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GDPAPI.Models.Vehicle", b =>
@@ -306,6 +252,19 @@ namespace GDPAPI.Migrations
                     b.HasOne("GDPAPI.Models.Company", "Company")
                         .WithMany("Vehicle")
                         .HasForeignKey("CompanyNit");
+                });
+
+            modelBuilder.Entity("GDPAPI.Models.VehicleDeparture", b =>
+                {
+                    b.HasOne("GDPAPI.Models.DestinationOffered", "DestinationOffered")
+                        .WithMany("VehicleDepartures")
+                        .HasForeignKey("DestinationOfferedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GDPAPI.Models.Vehicle", "Vehicle")
+                        .WithMany("VehicleDepartures")
+                        .HasForeignKey("Plaque");
                 });
 #pragma warning restore 612, 618
         }
