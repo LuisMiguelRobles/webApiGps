@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GDPAPI.Models;
+using GDPAPI.ViewModels;
 
 namespace GDPAPI.Repository.Interfaces
 {
@@ -8,6 +9,8 @@ namespace GDPAPI.Repository.Interfaces
         User GetUser(string email);
 
         void AddUser(User user);
+
+        bool IsValid(UserViewModel viewModel);
 
         IEnumerable<User> GetAllUser();
     }

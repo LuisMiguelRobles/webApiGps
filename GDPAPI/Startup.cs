@@ -1,6 +1,7 @@
 using Autofac;
 using GDPAPI.UnitOfWork;
 using GDPAPI.Persistence.Context;
+using GDPAPI.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -67,6 +68,7 @@ namespace GDPAPI
             // wire up using autofac specific APIs here
 
             containerBuilder.RegisterType<UnitOfWork.UnitOfWork>().As<IUnitOfWork>();
+            containerBuilder.RegisterType<Utilities.Utilities>().As<IUtilities>();
 
 
         }
