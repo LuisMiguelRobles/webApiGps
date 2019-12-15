@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Net;
 using GDPAPI.Models;
 using GDPAPI.UnitOfWork;
 using GDPAPI.Utilities;
@@ -72,14 +69,9 @@ namespace GDPAPI.Controllers
                 return NotFound();
 
 
-            return Ok(_utilities.Token.GetToken(user, GetKey()));
+            return Ok(_utilities.Token.GetToken(user));
         }
 
-        private byte[] GetKey()
-        {
-            var secretKey = _configuration.GetValue<string>("JWT:secretKey");
-            var key = Encoding.ASCII.GetBytes(secretKey);
-            return key;
-        }
+        
     }
 }

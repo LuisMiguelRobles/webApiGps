@@ -1,24 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using System.Text;
 using GDPAPI.Models;
-using GDPAPI.ViewModels;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GDPAPI.Utilities
 {
     public class Token :IToken
     {
-        public Token()
+        private readonly IConfiguration _configuration;
+        public Token(IConfiguration configuration)
         {
-            
+            _configuration = configuration;
         }
 
-        public string GetToken(User user, byte[] key)
+        public string GetToken(User user)
         {
+            var key = GetKey();
             if (user == null || key == null) return string.Empty;
             var tokenHandler = new JwtSecurityTokenHandler();
             var createToken = tokenHandler.CreateToken(GetSecurityTokenDescriptor(key, user));
@@ -55,6 +55,13 @@ namespace GDPAPI.Utilities
             };
 
             return tokenDescriptor;
+        }
+
+        private byte[] GetKey()
+        {
+            var secretKey = _configuration.GetValue<string>("JWT:secretKey");
+            var key = Encoding.ASCII.GetBytes(secretKey);
+            return key;
         }
     }
 }

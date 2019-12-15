@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace GDPAPI.Utilities
 {
@@ -11,9 +11,9 @@ namespace GDPAPI.Utilities
     {
         public IToken Token { get; }
 
-        public Utilities()
+        public Utilities(IConfiguration configuration)
         {
-            Token = new Token();
+            Token = new Token(configuration);
         }
 
         public string EncryptPassword(string password)
