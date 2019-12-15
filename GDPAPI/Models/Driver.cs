@@ -9,12 +9,8 @@ namespace GDPAPI.Models
     public class Driver
     {
         public string Identification { get; set; }
-
         public string Name { get; set; }
-
         public string Phone { get; set; }
-
-        public string VehicleIdentification { get; set; }
         public Vehicle Vehicle { get; set; }
     }
 }

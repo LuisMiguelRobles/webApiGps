@@ -1,4 +1,5 @@
-﻿using GDPAPI.Models.EnumModels;
+﻿using System.Collections.Generic;
+using GDPAPI.Models.EnumModels;
 
 namespace GDPAPI.Models
 {
@@ -12,5 +13,7 @@ namespace GDPAPI.Models
         public string City { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
