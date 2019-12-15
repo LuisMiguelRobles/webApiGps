@@ -10,5 +10,7 @@ namespace GDPAPI.Repository.Interfaces
         void AddStation(Station station);
 
         IEnumerable<Station> GetAllStations();
+
+        void DeleteStation(string code);
     }
 }
