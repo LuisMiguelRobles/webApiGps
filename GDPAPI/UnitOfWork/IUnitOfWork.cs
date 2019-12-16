@@ -9,5 +9,6 @@ namespace GDPAPI.UnitOfWork
         IDestinationOffered DestinationOffered { get; }
         ICompany Company { get; }
         void Complete();
+
     }
 }

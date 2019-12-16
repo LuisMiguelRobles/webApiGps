@@ -21,7 +21,7 @@ namespace GDPAPI.Controllers {
             if(destinationOffered == null) {
                 return BadRequest();
             }
-
+            
             return Ok(destinationOffered);
         }
 
