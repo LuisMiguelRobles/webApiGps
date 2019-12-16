@@ -54,7 +54,7 @@ namespace GDPAPI
                 options.AddPolicy("GDPPolicy", builder =>
                 {
                     builder
-                        .WithOrigins("managemybus.azurewebsites.net", "front.gdp.com")
+                        .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                 });
