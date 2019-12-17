@@ -14,6 +14,7 @@ namespace GDPAPI.Controllers {
         }
 
         [HttpGet]
+        [Route("~/api/GetStation")]
         public IActionResult ListStation(string code) {
             var station = _unitOfWork.Station.GetStation(code);
 

@@ -8,6 +8,7 @@ namespace GDPAPI.UnitOfWork
         IStation Station { get; }
         IDestinationOffered DestinationOffered { get; }
         ICompany Company { get; }
+        IVehicleDeparture VehicleDeparture { get; }
         void Complete();
 
     }
