@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using GDPAPI.Models;
-
+using System;
 
 namespace GDPAPI.Repository.Interfaces {
     public interface IVehicleDeparture {
@@ -12,6 +12,6 @@ namespace GDPAPI.Repository.Interfaces {
 
         void DeleteVehicleDepartures(string plaque);
 
-        IEnumerable<VehicleDeparture> GetVehicleDeparturesByDestinationId(int id);
+        IEnumerable<VehicleDeparture> GetVehicleDeparturesByDestinationId(int id, DateTime date);
     }
 }

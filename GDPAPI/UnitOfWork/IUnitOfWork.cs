@@ -11,7 +11,7 @@ namespace GDPAPI.UnitOfWork
         IVehicleDeparture VehicleDeparture { get; }
         IVehicle Vehicle { get; }
         ITicket Ticket { get; }
-        ISearch Search { get; };
+        ISearch Search { get; }
         void Complete();
 
     }
