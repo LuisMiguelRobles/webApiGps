@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GDPAPI.Models;
 
 namespace GDPAPI.Repository.Interfaces {
@@ -10,5 +11,6 @@ namespace GDPAPI.Repository.Interfaces {
         IEnumerable<DestinationOffered> GetAllDestinationOffereds();
 
         void DeleteDestinationOffereds(int id);
+        IEnumerable<DestinationOffered> GetDestinationOfferedsByStationID(int id);
     }
 }

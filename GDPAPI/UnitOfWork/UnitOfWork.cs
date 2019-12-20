@@ -17,6 +17,7 @@ namespace GDPAPI.UnitOfWork
             Company = new CompanyRepository(_apiContext);
             Vehicle = new VehicleRepository(_apiContext);
             Ticket = new TicketRepository(_apiContext);
+            Search = new SearchRepository(_apiContext, DestinationOffered, VehicleDeparture);
         }
 
         public IUser User { get; }
@@ -30,6 +31,8 @@ namespace GDPAPI.UnitOfWork
         public IVehicle Vehicle { get; }
 
         public ITicket Ticket { get; }
+
+        public ISearch Search { get; }
 
         public void Complete()
         {

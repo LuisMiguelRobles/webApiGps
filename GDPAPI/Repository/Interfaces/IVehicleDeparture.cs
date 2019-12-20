@@ -11,5 +11,7 @@ namespace GDPAPI.Repository.Interfaces {
         IEnumerable<VehicleDeparture> GetAllVehicleDepartures();
 
         void DeleteVehicleDepartures(string plaque);
+
+        IEnumerable<VehicleDeparture> GetVehicleDeparturesByDestinationId(int id);
     }
 }

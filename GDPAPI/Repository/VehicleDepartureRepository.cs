@@ -1,4 +1,6 @@
-﻿using GDPAPI.Models;
+﻿using GDPAPI.Helpers;
+using GDPAPI.Models;
+using GDPAPI.Models.EnumModels;
 using GDPAPI.Persistence.Context;
 using GDPAPI.Repository.Interfaces;
 using System.Collections.Generic;
@@ -30,6 +32,11 @@ namespace GDPAPI.Repository {
             var vehicleDeparture = _apiContext.VehicleDepartures.FirstOrDefault(vehicleDeparture => vehicleDeparture.Plaque == plaque);
 
             _apiContext.Remove(vehicleDeparture);
+        }
+
+        public IEnumerable<VehicleDeparture> GetVehicleDeparturesByDestinationId(int id, System.DateTime date) {
+            return _apiContext.VehicleDepartures.Where(vehicleDeparture => vehicleDeparture.DestinationOfferedId == id
+                && DateValidatorHelper.compareTwoDates(vehicleDeparture.DateTime, date) == ResultEnum.EQUAL);
         }
     }
 }
