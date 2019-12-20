@@ -15,6 +15,8 @@ namespace GDPAPI.UnitOfWork
             DestinationOffered = new DestinationOfferedRepository(_apiContext);
             VehicleDeparture = new VehicleDepartureRepository(_apiContext);
             Company = new CompanyRepository(_apiContext);
+            Vehicle = new VehicleRepository(_apiContext);
+            Ticket = new TicketRepository(_apiContext);
         }
 
         public IUser User { get; }
@@ -24,6 +26,10 @@ namespace GDPAPI.UnitOfWork
         public IDestinationOffered DestinationOffered { get; }
 
         public IVehicleDeparture VehicleDeparture { get; }
+
+        public IVehicle Vehicle { get; }
+
+        public ITicket Ticket { get; }
 
         public void Complete()
         {
