@@ -24,7 +24,7 @@ namespace GDPAPI.Repository {
             if(destinations != null && destinations.Any()) {
                 foreach (DestinationOffered destination in destinations) {
                     List<AvailabilityViewModel> availabilities = new List<AvailabilityViewModel>();
-                    IEnumerable<VehicleDeparture> vehicles = _vehicleDeparture.GetVehicleDeparturesByDestinationId(destination.Id);
+                    IEnumerable<VehicleDeparture> vehicles = _vehicleDeparture.GetVehicleDeparturesByDestinationId(destination.Id, date);
                     if(vehicles != null && vehicles.Any()) {
                         foreach (VehicleDeparture vehicle in vehicles) {
                             AvailabilityViewModel availability = new AvailabilityViewModel() {
