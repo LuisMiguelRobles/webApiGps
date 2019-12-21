@@ -19,7 +19,7 @@ namespace GDPAPI.Controllers {
         [Route("~/api/GetAvailability")]
         public IActionResult ListAvailability(QueryViewModel query) {
             try {
-                var search = _unitOfWork.Search.GetAllDestinationOffered(query.StationId, query.DepartureDate);
+                var search = _unitOfWork.Search.GetAllDestinationOffered(2, new DateTime(2019,12,25));
 
                 if (search != null) {
                     return Ok(search);
