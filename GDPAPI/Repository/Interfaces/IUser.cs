@@ -1,11 +1,17 @@
-﻿using GDPAPI.Models;
+﻿using System.Collections.Generic;
+using GDPAPI.Models;
+using GDPAPI.ViewModels;
 
 namespace GDPAPI.Repository.Interfaces
 {
     public interface IUser
     {
-        User GetUser(string email);
+        User GetUser(string password, string email);
 
         void AddUser(User user);
+
+        bool IsValid(UserViewModel viewModel);
+
+        IEnumerable<User> GetAllUser();
     }
 }

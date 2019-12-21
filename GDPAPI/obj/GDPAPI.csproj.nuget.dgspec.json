@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luis Miguel\\source\\repos\\GDPAPI\\GDPAPI\\GDPAPI.csproj": {}
+    "C:\\Users\\Balder\\Documents\\GitHub\\webApiGps\\GDPAPI\\GDPAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luis Miguel\\source\\repos\\GDPAPI\\GDPAPI\\GDPAPI.csproj": {
+    "C:\\Users\\Balder\\Documents\\GitHub\\webApiGps\\GDPAPI\\GDPAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luis Miguel\\source\\repos\\GDPAPI\\GDPAPI\\GDPAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Balder\\Documents\\GitHub\\webApiGps\\GDPAPI\\GDPAPI.csproj",
         "projectName": "GDPAPI",
-        "projectPath": "C:\\Users\\Luis Miguel\\source\\repos\\GDPAPI\\GDPAPI\\GDPAPI.csproj",
-        "packagesPath": "C:\\Users\\Luis Miguel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luis Miguel\\source\\repos\\GDPAPI\\GDPAPI\\obj\\",
+        "projectPath": "C:\\Users\\Balder\\Documents\\GitHub\\webApiGps\\GDPAPI\\GDPAPI.csproj",
+        "packagesPath": "C:\\Users\\Balder\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Balder\\Documents\\GitHub\\webApiGps\\GDPAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Luis Miguel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Balder\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +37,52 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[4.9.4, )"
+            },
+            "Autofac.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Microsoft.Extensions.Logging.Debug": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
